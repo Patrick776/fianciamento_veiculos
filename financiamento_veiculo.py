@@ -47,5 +47,28 @@ def inserir_veiculo(connection, nome, ano, preco):
     except mysql.connector.Error as e:
         print(f"Erro ao inserir veículo: {e}")
 
+#cálculo de financiamento
+def calcular_financiamento(preco, parcelas):
+    entrada = preco * 0.2
+    juros = 0.03
+    valor_parcela = (preco - entrada) * (1 + juros) / parcelas
+    return entrada, valor_parcela
+
+#cadastro de cliente
+def cadastrar_cliente():
+    nome = input("Nome completo: ")
+    endereco = input("Endereço: ")
+    cpf = input("CPF: ")
+    rg = input("RG: ")
+    empregado = input("Empregado (S/N): ").upper()
+    if empregado == "N":
+        print("Proposta recusada para clientes desempregados.")
+        return None
+    else:
+        renda = float(input("Renda mensal: "))
+        return nome, endereco, cpf, rg, renda
+
+
+
 
 
