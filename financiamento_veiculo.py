@@ -68,6 +68,51 @@ def cadastrar_cliente():
         renda = float(input("Renda mensal: "))
         return nome, endereco, cpf, rg, renda
 
+#salvar em planilha Excel
+def salvar_em_excel(df):
+    df.to_excel("cadastro_clientes.xlsx", index = false)
+    print("Dados salvos em cadastro_clientes.xlsx")
+
+#Exemplo de uso
+if __name__ == "__main__":
+    connection = conectar_bd()
+    if connection:
+        criar_tabela_veiculos(connection)
+        inserir_veiculo(connection, "Tiguain", 2020, 65000.00)
+        inserir_veiculo(connection, "T-Cross", 2023, 95000.00)
+        inserir_veiculo(connection, "UP TSI250", 2019, 55000.00)
+        inserir_veiculo(connection, "Polo", 2015, 35000.00)
+        inserir_veiculo(connection, "Gol Plus", 2010, 15000.00)
+        inserir_veiculo(connection, "Uno Way", 2014, 40000.00)
+        inserir_veiculo(connection, "Pulse", 2023, 105000.00)
+        inserir_veiculo(connection, "Toro", 2021, 135000.00)
+        inserir_veiculo(connection, "Argo", 2022, 80000.00)
+        inserir_veiculo(connection, "Palio", 2014, 18900.00)
+        inserir_veiculo(connection, "Maverick", 2024, 250000.00)
+        inserir_veiculo(connection, "Ranger Raptor", 2023, 180000.00)
+        inserir_veiculo(connection, "Ford Ka", 2018, 33000.00)
+        inserir_veiculo(connection, "Fiesta", 2012, 25000.00)
+        inserir_veiculo(connection, "Fusion", 2021, 75000.00)
+        inserir_veiculo(connection, "Onix", 2015, 17900.00)
+        inserir_veiculo(connection, "Blazer", 2022, 120000.00)
+        inserir_veiculo(connection, "Equinox", 2011, 200000.00)
+        inserir_veiculo(connection, "Corsa Milenium", 2011, 13000.00)
+
+        nome_veiculo = input("Digite o nome do veículo: ")
+        preco_veiculo = input("Digite o preço do veículo: ")
+        parcelas = int(input("Digite o número de parcelas desejados: "))
+
+        entrada, valor_parcela = calcular_financiamento(preco_veiculo, parcelas)
+        print(f"Entrada: R%{entrada:.2f}")
+        print(f"Valor da parcela: R${valor_parcela:.2f}")
+
+        cliente = cadastrar_cliente()
+        if cliente:
+            df = pd.Dataframe([cliente], columns=["Nome", "Endereço", "CPF", "RG", "Renda"])
+            salvar_em_excel(df)
+        
+        connection.close()
+
 
 
 
